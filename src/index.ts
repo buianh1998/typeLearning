@@ -1,5 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
+import fs from "fs";
 let app: Application = express();
 dotenv.config();
 let { PORT, HOST } = process.env;
@@ -62,6 +63,7 @@ function speardParameter(...color: string[]) {
     for (let i in color) console.log(color[i]);
 }
 let colors = ["ahah", "bububu"];
+
 // Bóc tác Array
 // bên cạnh việc tạo mảng ta cũng có thể bóc tách các phần tử trong mảng ra ngoài vằng cách gán cho phần tử 1 key
 // để truy xuất phần tử chỉ cần gọi tới key đó
@@ -177,4 +179,51 @@ let student: object = {
 //object.assign sao chép tất cả các giá trị của tất cả các thuộc tính riêng haowjc nhiều object vào 1 object khác
 // Nếu các object có cùng 1 thuộc tính, thì sẽ lấy thuộc tính của object được duyệt cuối cùng
 let objectAssign = Object.assign(this, student, { name: "Hihih", yearOld: 21 });
-console.log(objectAssign);
+//object.entries
+let arrPerson: any[] = [];
+class Devoloper {
+    constructor(data?: Partial<Devoloper>) {
+        Object.assign(this, data);
+    }
+    id: number;
+    name: string;
+    address: string;
+    yearOld: number;
+
+    static viewDevoloper() {
+        return arrPerson;
+    }
+    static addDevoloper(item) {
+        return arrPerson.push(item);
+    }
+    static editDevoloper(id: number, item: { [type: string]: any }) {
+        let findDevById = arrPerson.find((item) => item.id === id);
+        if (findDevById) {
+            findDevById.name = item.name;
+            (findDevById.address = item.address), (findDevById.yearOld = item.yearOld);
+            return findDevById;
+        } else return `Không tồn tại`;
+    }
+    static deleteDevolop(id: number) {
+        let findDevById = arrPerson.findIndex((item) => item.id === id);
+        if (findDevById !== -1) {
+            arrPerson.splice(findDevById, 1);
+            return {};
+        } else return `Không tồn tại`;
+    }
+}
+class Hi extends Devoloper {
+    constructor(data?: Partial<Hi>) {
+        super(data);
+        Object.assign(this, data);
+    }
+}
+let dev1 = new Hi({ id: 2, name: "Bùi Anh", address: "Hihihi", yearOld: 21 });
+Hi.addDevoloper(dev1);
+// Devoloper.editDevoloper(dev1.id, { name: "Bùi Thế Anh", address: "Hihihi", yearOld: 23 });
+// Devoloper.deleteDevolop(dev1.id);
+
+// regular expresstion: Biểu thức chính quy
+let re = /bui/;
+let str = "Bùi Thế anh bui hihih";
+console.log(str.replace(re, "bui"));
