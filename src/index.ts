@@ -6,40 +6,40 @@ dotenv.config();
 let { PORT, HOST } = process.env;
 app.listen(PORT, () => console.log(`Hello ${HOST}:${PORT}`));
 function count_zero(n: number) {
-    let count = 0;
-    let i = 0;
-    let j = n;
-    while (i == 0) {
-        i = j % 10;
-        j = j / 10;
-        if (i != 0) return count;
-        count++;
-    }
+  let count = 0;
+  let i = 0;
+  let j = n;
+  while (i == 0) {
+    i = j % 10;
+    j = j / 10;
+    if (i != 0) return count;
+    count++;
+  }
 
-    return count;
+  return count;
 }
 app.get("/", (req: Request, res: Response) => {
-    res.send("HIhihih");
+  res.send("HIhihih");
 });
 // ép kiểu cho hàm
 let tesst: number = 2;
 let tessst: number = 2;
 // trong function phải ép kiểu
 let func = (hihih: number) => {
-    return 100000 * tessst;
+  return 100000 * tessst;
 };
 //ubuntu
 let ob = {
-    id: 1,
-    test: function () {
-        // vì this chỉ có tác dụng trong 1 hàm function test do this là thằng cha trỏ tới thuộc tính con là id,
-        // vì đã thêm 1 hàm khác nũa là hàm setTimeout lên lúc này this là this của thằng setTimeout lên khi trỏ tới id 1 và nó k tìm đc id 1 báo lỗi
-        // các giải quyết là khi bạn muốn dùng 2 function lồng nhau mà sử dụng từ khóa this ở thằng function cha thì gán nó vào 1 biến ở function cha như vậy khi xuống bên dưới sẽ có thể sử dụng đc từ khóa this thông qua biến đã gấn, tránh bị nhầm lẫn do thằng function con cũng là 1 cái this.
-        let hi = this;
-        setTimeout(function () {
-            console.log(hi.id);
-        }, 1000);
-    },
+  id: 1,
+  test: function () {
+    // vì this chỉ có tác dụng trong 1 hàm function test do this là thằng cha trỏ tới thuộc tính con là id,
+    // vì đã thêm 1 hàm khác nũa là hàm setTimeout lên lúc này this là this của thằng setTimeout lên khi trỏ tới id 1 và nó k tìm đc id 1 báo lỗi
+    // các giải quyết là khi bạn muốn dùng 2 function lồng nhau mà sử dụng từ khóa this ở thằng function cha thì gán nó vào 1 biến ở function cha như vậy khi xuống bên dưới sẽ có thể sử dụng đc từ khóa this thông qua biến đã gấn, tránh bị nhầm lẫn do thằng function con cũng là 1 cái this.
+    let hi = this;
+    setTimeout(function () {
+      console.log(hi.id);
+    }, 1000);
+  },
 };
 ///Gán giá trị mặc định cho function
 // Nếu không muốn để dữ liệu bên dưới có thể gán thẳng giá trị cho tham số của hàm
@@ -47,20 +47,20 @@ let ob = {
 // Nếu không muốn thay đổi tham số biến a, nhưng lại muốn đổi biến b
 // cần để a ở phần đối số là undifine vì như vậy nó sẽ hiểu đc là a lấy giá trị tham số tạo mặc định của hàm
 function hihih(value = 1000, hehe = value * 2, ahh: number) {
-    console.log(value + hehe);
-    // argument là những tham số đã khai báo ở phía trên hàm, nếu muốn lấy tổng số lượng phần tử sài agument.length
+  console.log(value + hehe);
+  // argument là những tham số đã khai báo ở phía trên hàm, nếu muốn lấy tổng số lượng phần tử sài agument.length
 }
 //res Parameter
 // nếu bạn muốn dữ liệu truyền vào hàm có thể là 1 mảng dữ liệu mà gồn nhiều tham số có thể sài aggument
 // truyền vào từng phần tử lấy ra 1 mảng
 function resparameter(...color: string[]) {
-    for (let i in color) console.log(color[i]);
+  for (let i in color) console.log(color[i]);
 }
 // spread Parameter
 // Nếu resparameter chỉ khai báo mảng vs phần tử bất kỳ và tham số truyền sẽ là các biến ở bên dưới
 // spead parameter sẽ khai báo 1 mảng
 function speardParameter(...color: string[]) {
-    for (let i in color) console.log(color[i]);
+  for (let i in color) console.log(color[i]);
 }
 let colors = ["ahah", "bububu"];
 
@@ -76,9 +76,9 @@ let [a, ...b] = arr;
 // Bóc tác Object
 // ngoài cách trên ta có thể tạo 1 cái key cho các phần tử bóc tách bằng cách thêm sau phần tử đó là 1 cái ky
 let Obtest = {
-    id: 1,
-    name: "Bùi ANh",
-    address: "Hồ Chí Minh",
+  id: 1,
+  name: "Bùi ANh",
+  address: "Hồ Chí Minh",
 };
 let { id, name, address } = Obtest;
 // For in and of, cả 2 đứa này đều có thể sử dụng cho arr, ob, value is string
@@ -97,32 +97,32 @@ let forOFTest = ["a", "b", "c"];
 // Kết thừa thì cần extend class cần kế thừa, và khai báo phương thức supper để class đc kế thừa hiểu cái thuộc tính này là kế thừa từ cha
 // Module: Phân chia chương trình thành nhiều thành phần khác nhau, mỗi thành phần là 1 module
 class Person {
-    protected id: string;
-    protected name: string;
-    protected address: string;
-    constructor(id: string, name: string, address: string) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-    }
-    public newSv(): void {
-        console.log(`ID: ${this.id}
+  protected id: string;
+  protected name: string;
+  protected address: string;
+  constructor(id: string, name: string, address: string) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+  }
+  public newSv(): void {
+    console.log(`ID: ${this.id}
                     NAME: ${this.name}
                     ADDRESS: ${this.address}`);
-    }
-    public static getAllDataSV() {
-        console.log("hiih");
-    }
+  }
+  public static getAllDataSV() {
+    console.log("hiih");
+  }
 }
 class Student extends Person {
-    private mediumScore: number;
-    constructor(id: string, name: string, address: string, mediumScore: number) {
-        super(id, name, address);
-        this.mediumScore = mediumScore;
-    }
-    public newPerson(): void {
-        super.newSv();
-    }
+  private mediumScore: number;
+  constructor(id: string, name: string, address: string, mediumScore: number) {
+    super(id, name, address);
+    this.mediumScore = mediumScore;
+  }
+  public newPerson(): void {
+    super.newSv();
+  }
 }
 /**
  * basic javascript
@@ -162,7 +162,7 @@ let arrSplice = arrr.splice(1, 2, "h", "g");
 // nếu truyền thì gái trị nó là giá trị mình truyền ở lần chạy hàm đầu tiên
 let arrNumber: number[] = [1, 2, 3, 4, 5];
 let newArrReduce = arrNumber.reduce((accu, current) => {
-    return accu + current;
+  return accu + current;
 }, 1);
 // filter trả về mảng với với các tham số thỏa mãn điều kiện
 let newArrFilter = arrNumber.filter((item) => item > 2);
@@ -173,8 +173,8 @@ let newArrMap = arrNumber.map((item) => item * 2);
  * object
  */
 let student: object = {
-    name: "Bui Anh",
-    address: "Hồ Chí Mình",
+  name: "Bui Anh",
+  address: "Hồ Chí Mình",
 };
 //object.assign sao chép tất cả các giá trị của tất cả các thuộc tính riêng haowjc nhiều object vào 1 object khác
 // Nếu các object có cùng 1 thuộc tính, thì sẽ lấy thuộc tính của object được duyệt cuối cùng
@@ -182,41 +182,42 @@ let objectAssign = Object.assign(this, student, { name: "Hihih", yearOld: 21 });
 //object.entries
 let arrPerson: any[] = [];
 class Devoloper {
-    constructor(data?: Partial<Devoloper>) {
-        Object.assign(this, data);
-    }
-    id: number;
-    name: string;
-    address: string;
-    yearOld: number;
+  constructor(data?: Partial<Devoloper>) {
+    Object.assign(this, data);
+  }
+  id: number;
+  name: string;
+  address: string;
+  yearOld: number;
 
-    static viewDevoloper() {
-        return arrPerson;
-    }
-    static addDevoloper(item) {
-        return arrPerson.push(item);
-    }
-    static editDevoloper(id: number, item: { [type: string]: any }) {
-        let findDevById = arrPerson.find((item) => item.id === id);
-        if (findDevById) {
-            findDevById.name = item.name;
-            (findDevById.address = item.address), (findDevById.yearOld = item.yearOld);
-            return findDevById;
-        } else return `Không tồn tại`;
-    }
-    static deleteDevolop(id: number) {
-        let findDevById = arrPerson.findIndex((item) => item.id === id);
-        if (findDevById !== -1) {
-            arrPerson.splice(findDevById, 1);
-            return {};
-        } else return `Không tồn tại`;
-    }
+  static viewDevoloper() {
+    return arrPerson;
+  }
+  static addDevoloper(item) {
+    return arrPerson.push(item);
+  }
+  static editDevoloper(id: number, item: { [type: string]: any }) {
+    let findDevById = arrPerson.find((item) => item.id === id);
+    if (findDevById) {
+      findDevById.name = item.name;
+      (findDevById.address = item.address),
+        (findDevById.yearOld = item.yearOld);
+      return findDevById;
+    } else return `Không tồn tại`;
+  }
+  static deleteDevolop(id: number) {
+    let findDevById = arrPerson.findIndex((item) => item.id === id);
+    if (findDevById !== -1) {
+      arrPerson.splice(findDevById, 1);
+      return {};
+    } else return `Không tồn tại`;
+  }
 }
 class Hi extends Devoloper {
-    constructor(data?: Partial<Hi>) {
-        super(data);
-        Object.assign(this, data);
-    }
+  constructor(data?: Partial<Hi>) {
+    super(data);
+    Object.assign(this, data);
+  }
 }
 let dev1 = new Hi({ id: 2, name: "Bùi Anh", address: "Hihihi", yearOld: 21 });
 Hi.addDevoloper(dev1);
@@ -226,4 +227,72 @@ Hi.addDevoloper(dev1);
 // regular expresstion: Biểu thức chính quy
 let re = /bui/;
 let str = "Bùi Thế anh bui hihih";
-console.log(str.replace(re, "bui"));
+
+// interface
+// basic
+interface A {
+  name: string;
+  address: string;
+}
+function A(p: A) {
+  return p.name;
+}
+console.log(A({ name: "bui ANh", address: "HCM" }));
+
+// optional propreties
+interface Personnn {
+  name?: string;
+  address?: string;
+  yearOld?: number;
+}
+
+// interface validate argument
+// type in function validate parameter by optional propreties
+function createPerson(
+  person: Personnn
+): { name: string; address: string; yearOld: number } {
+  let newPerson = { name: "AAA", address: "HO CHI MINh", yearOld: 1998 };
+  if (person.name) {
+    newPerson["name"] = person.name;
+  }
+  return newPerson;
+}
+
+let miniPerson = {
+  name: "Bui ANh",
+  address: "Thai Binh",
+  yearOld: null,
+};
+console.log(createPerson(miniPerson));
+
+/**
+ *
+ * */ interface Point {
+  readonly x: number;
+  readonly y: string;
+}
+
+let p1: Point = { x: 3, y: "bhb" };
+// with readonly, you can't change value in object, because it is constant
+// when using array, you can't change propreties with ReadonlyArray <T>.
+// This is a proprreties similar as Array, but change data in array
+let num: number[] = [1, 2, 3, 4];
+let readonlyNumber: ReadonlyArray<number> = num;
+// function types
+interface searchFunction {
+  (source: string, subString: string): boolean;
+}
+let search: searchFunction;
+search = function (source: string, subString: string) {
+  let result = source.search(subString);
+  return result > -1;
+};
+//Index types
+interface stringArray {
+  //length: string khong duoc phai trung kieu du lieu voi chi so
+  [index: number]: string;
+}
+// string Array ho tro ep kieu tra ve 1 cai mang voi type is number and value is string
+let hihi: stringArray = ["hi", "ha", "hu"];
+let myStr = hihi[2];
+// class types
