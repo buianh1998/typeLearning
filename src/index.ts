@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import fs from "fs";
+
 let app: Application = express();
 dotenv.config();
 let { PORT, HOST } = process.env;
@@ -198,12 +198,13 @@ class Devoloper {
   }
   static editDevoloper(id: number, item: { [type: string]: any }) {
     let findDevById = arrPerson.find((item) => item.id === id);
-    if (findDevById) {
-      findDevById.name = item.name;
-      (findDevById.address = item.address),
-        (findDevById.yearOld = item.yearOld);
-      return findDevById;
-    } else return `Không tồn tại`;
+    findDevById = item;
+    // if (findDevById) {
+    //   findDevById.name = item.name;
+    //   (findDevById.address = item.address),
+    //     (findDevById.yearOld = item.yearOld);
+    //   return findDevById;
+    // } else return `Không tồn tại`;
   }
   static deleteDevolop(id: number) {
     let findDevById = arrPerson.findIndex((item) => item.id === id);
@@ -219,9 +220,14 @@ class Hi extends Devoloper {
     Object.assign(this, data);
   }
 }
-let dev1 = new Hi({ id: 2, name: "Bùi Anh", address: "Hihihi", yearOld: 21 });
+let dev1 = new Hi({ id: 3, name: "Bùi Anh", address: "Hihihi", yearOld: 21 });
 Hi.addDevoloper(dev1);
-// Devoloper.editDevoloper(dev1.id, { name: "Bùi Thế Anh", address: "Hihihi", yearOld: 23 });
+
+Devoloper.editDevoloper(dev1.id, {
+  name: "Bùi Thế Anh",
+  address: "Hihihi",
+  yearOld: 23,
+});
 // Devoloper.deleteDevolop(dev1.id);
 
 // regular expresstion: Biểu thức chính quy
@@ -237,8 +243,6 @@ interface A {
 function A(p: A) {
   return p.name;
 }
-console.log(A({ name: "bui ANh", address: "HCM" }));
-
 // optional propreties
 interface Personnn {
   name?: string;
@@ -263,15 +267,15 @@ let miniPerson = {
   address: "Thai Binh",
   yearOld: null,
 };
-console.log(createPerson(miniPerson));
+// console.log(createPerson(miniPerson));
 
 /**
  *
- * */ interface Point {
+ * */
+interface Point {
   readonly x: number;
   readonly y: string;
 }
-
 let p1: Point = { x: 3, y: "bhb" };
 // with readonly, you can't change value in object, because it is constant
 // when using array, you can't change propreties with ReadonlyArray <T>.
@@ -296,3 +300,88 @@ interface stringArray {
 let hihi: stringArray = ["hi", "ha", "hu"];
 let myStr = hihi[2];
 // class types
+/**
+ * Generisc type
+ */
+function identitye(art: any) {
+  return art;
+}
+// tham so bt
+console.log(typeof identitye(2));
+function identity<T>(art: T): T {
+  return art;
+}
+identity<string>("hihihi");
+// Nguyen tac khi su dung generisc khi gan gia tri la function
+// Khac ten generisc nhung bat buoc parameter phai giong argument,
+// Y can changle name parametor
+// cach viet theo ham
+let myIdentity: <U>(art: U) => U = identity;
+let myIdentityt: { <T>(art: T): T } = identity;
+// cach viet theo object
+
+// console.log(identity<string>("hihi"));
+// console.log(identity<number>(4));
+// console.log(identity<boolean>(5 > 1));
+// :T ;a gia tri ma ham do return phai co data la value cua T
+// voi mang
+function loggingIdentity<T>(art: T[]): T[] {
+  console.log(art.length);
+  return art;
+}
+// console.log(
+//   loggingIdentity<number>([1, 2, 3, 4])
+// );
+//interface with generisc
+
+interface lengThWise {
+  name: number;
+}
+
+function checkVali<T extends lengThWise>(numberr: T) {
+  console.log(numberr.name);
+  return numberr;
+}
+class GenericsNum<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;
+}
+
+let hi = new GenericsNum<number>();
+hi.zeroValue = 5;
+hi.add = function (x: 5, y = 6) {
+  return x + y;
+};
+
+//
+
+let x: number = 9099000000002;
+let y: number = 5100900000009;
+let xx = x + y;
+let resultString: any = "";
+let StringX: string[] = String(x).split("");
+let StringY: string[] = String(y).split("");
+let checkLenghArrayBigger: string[] =
+  StringX.length >= StringY.length ? StringX : StringY;
+let dataIfResultGreaterThan10 = 0;
+for (let index = checkLenghArrayBigger.length - 1; index >= 0; index--) {
+  let result: any =
+    Number(StringX[index]) + Number(StringY[index]) + dataIfResultGreaterThan10;
+
+  if (result >= 10) {
+    if (index >= 1) {
+      dataIfResultGreaterThan10 = 1;
+      result %= 10;
+    } else {
+      let dataAtLastIndex = Math.floor(result / 10);
+
+      result = String(result % 10) + dataAtLastIndex;
+    }
+  } else {
+    dataIfResultGreaterThan10 = 0;
+  }
+  resultString += result;
+}
+console.log(xx);
+
+console.log(Number(String(resultString).split("").reverse().join("")));
