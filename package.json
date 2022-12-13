@@ -20,7 +20,7 @@
     "homepage": "https://github.com/buianh1998/typeLearning#readme",
     "dependencies": {
         "dotenv": "^8.2.0",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "nodemon": "^2.0.4"
     },
     "devDependencies": {
